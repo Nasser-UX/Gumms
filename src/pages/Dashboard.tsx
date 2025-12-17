@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,6 +13,7 @@ const I18N = {
     searchPlaceholder: "ابحث باسم الخدمة أو الرمز...",
     quickActions: "إجراءات سريعة",
     createService: "إنشاء خدمة",
+    createManual: "إنشاء دليل",
     recentActivity: "النشاط الأخير",
     emptyActivity: "لا يوجد نشاط بعد.",
     manuals: "الأدلة",
@@ -30,6 +32,7 @@ const I18N = {
     searchPlaceholder: "Search by service name or code...",
     quickActions: "Quick Actions",
     createService: "Create Service",
+    createManual: "Create Manual",
     recentActivity: "Recent activity",
     emptyActivity: "No activity yet.",
     manuals: "Manuals",
@@ -99,12 +102,27 @@ export default function Dashboard() {
           <CardTitle className="text-base">{t.quickActions}</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-wrap gap-2">
-          <Button>{t.manuals}</Button>
-          {(role === "reviewer" || role === "admin") && (
-            <Button variant="secondary">{t.reviewQueue}</Button>
+          <Button asChild>
+            <Link to="/manuals">{t.manuals}</Link>
+          </Button>
+          {role === "admin" && (
+            <Button asChild>
+              <Link to="/manuals/new">{t.createManual}</Link>
+            </Button>
           )}
-          <Button variant="outline">{t.searchManuals}</Button>
-          {role === "admin" && <Button variant="outline">{t.services}</Button>}
+          {(role === "reviewer" || role === "admin") && (
+            <Button variant="secondary" asChild>
+              <Link to="/review">{t.reviewQueue}</Link>
+            </Button>
+          )}
+          <Button variant="outline" asChild>
+            <Link to="/search">{t.searchManuals}</Link>
+          </Button>
+          {role === "admin" && (
+            <Button variant="outline" asChild>
+              <Link to="/services">{t.services}</Link>
+            </Button>
+          )}
         </CardContent>
       </Card>
 
