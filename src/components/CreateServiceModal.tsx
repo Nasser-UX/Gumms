@@ -1,5 +1,4 @@
 import * as React from "react";
-import axios from "axios";
 import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
